@@ -1,0 +1,71 @@
+{
+  "id": "99e30b4a-237e-4987-a4a3-add4c59360af",
+  "name": "myProject",
+  "description": "This is a CMS profile sample",
+  "version": 1,
+  "createdAt": "2021-06-02T03:15:44.443Z",
+  "stepType": "main",
+  "input": {},
+  "output": {},
+  "startStep": "/steps/start",
+  "endStep": "/steps/end",
+  "steps": {
+    "start": {
+      "id": "start",
+      "stepType": "tag",
+      "completed": false,
+      "nextStepId": [
+        "/steps/first"
+      ]
+    },
+    "first": {
+      "id": "first",
+      "stepType": "tag",
+      "completed": false,
+      "nextStepId": [
+        "/steps/second"
+      ],
+      "output": 6
+    },
+    "second": {
+      "id": "second",
+      "stepType": "tag",
+      "completed": false,
+      "switch": [
+        {
+          "condition": "steps.first.output >= 6",
+          "nextStepId": ["/steps/third"]
+        },
+        {
+          "condition": "steps.first.output < 6",
+          "nextStepId": ["/steps/end"]
+        }
+      ],
+      "nextStepId": [
+        "/steps/fourth"
+      ]
+    },
+    "third": {
+      "id": "third",
+      "stepType": "tag",
+      "completed": false,
+      "nextStepId": [
+        "/steps/fourth"
+      ]
+    },
+    "fourth": {
+      "id": "fourth",
+      "stepType": "tag",
+      "completed": false,
+      "nextStepId": [
+        "/steps/end"
+      ]
+    },
+    "end": {
+      "id": "end",
+      "stepType": "tag",
+      "completed": false,
+      "noCompletedCheck": true
+    }
+  }
+}
