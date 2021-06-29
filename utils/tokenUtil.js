@@ -1,4 +1,4 @@
-const Jwt = require('jsonwebtoken');
+const Jwt = require('jsonwebtoken')
 
 const
   { GoogleAuth } = require('google-auth-library'),
@@ -21,11 +21,11 @@ exports.idTokenGet = async (target) => {
  * JWT解密
  */
 exports.decodeJwt = async (jwtToken) => {
-  let decoded;
+  let decoded
   try {
-    decoded = Jwt.decode(jwtToken);
+    decoded = Jwt.decode(jwtToken)
   } catch (error) {
-    console.log("decodeJwt ERROR: " + JSON.stringify(error, null, 2));  //jwt异常
+    console.log(`decodeJwt ERROR: ${JSON.stringify(error, null, 2)}`) // jwt异常
   }
-  return decoded;
+  return decoded
 }

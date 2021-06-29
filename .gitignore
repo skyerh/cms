@@ -1,5 +1,6 @@
 node_modules
 *.zip
+*.bak
 /.vscode
 .eslintrc.js
 package-lock.json

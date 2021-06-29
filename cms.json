@@ -1,8 +1,7 @@
 {
-  "id": "99e30b4a-237e-4987-a4a3-add4c59360af",
-  "name": "myProject",
-  "description": "This is a CMS profile sample",
-  "version": 1,
+  "name": "FOTA3",
+  "description": "This is a CMS profile sample for FOTA3",
+  "version": 0,
   "createdAt": "2021-06-02T03:15:44.443Z",
   "stepType": "main",
   "input": {},
@@ -15,46 +14,72 @@
       "stepType": "tag",
       "completed": false,
       "nextStepId": [
-        "/steps/first"
+        "/steps/checkIntegrity"
       ]
     },
-    "first": {
-      "id": "first",
+    "checkIntegrity": {
+      "id": "checkIntegrity",
       "stepType": "tag",
       "completed": false,
       "nextStepId": [
-        "/steps/second"
+        "/steps/outsideSigning"
       ],
-      "output": 6
+      "output": ""
     },
-    "second": {
-      "id": "second",
+    "outsideSigning": {
+      "id": "outsideSigning",
+      "stepType": "event",
+      "ongoing": false,
+      "completed": false,
+      "url": "https://us-central1-dynalink-iot-dev.cloudfunctions.net/cmsList",
+      "method": "post",
+      "body": {
+        "name": "FOTA3",
+        "step": "outsideSigning"
+      },
+      "callback": "https://us-central1-dynalink-iot-dev.cloudfunctions.net/cmsList",
+      "ttl": 8640000,
+      "timestamp": 0,
+      "default": {
+        "result": "rejected"
+      },
+      "nextStepId": [
+        "/steps/notify"
+      ],
+      "output": ""
+    },
+    "notify": {
+      "id": "notify",
       "stepType": "tag",
       "completed": false,
       "switch": [
         {
-          "condition": "steps.first.output >= 6",
-          "nextStepId": ["/steps/third"]
+          "condition": "steps.outsideSigning.output.result === 'rejected'",
+          "nextStepId": [
+            "/steps/rejected"
+          ]
         },
         {
-          "condition": "steps.first.output < 6",
-          "nextStepId": ["/steps/end"]
+          "condition": "steps.first.output === 'approved'",
+          "nextStepId": [
+            "/steps/approved"
+          ]
         }
       ],
       "nextStepId": [
-        "/steps/fourth"
+        "/steps/end"
       ]
     },
-    "third": {
-      "id": "third",
+    "rejected": {
+      "id": "rejected",
       "stepType": "tag",
       "completed": false,
       "nextStepId": [
-        "/steps/fourth"
+        "/steps/end"
       ]
     },
-    "fourth": {
-      "id": "fourth",
+    "approved": {
+      "id": "approved",
       "stepType": "tag",
       "completed": false,
       "nextStepId": [
@@ -65,7 +90,7 @@
       "id": "end",
       "stepType": "tag",
       "completed": false,
-      "noCompletedCheck": true
+      "completedCheck": false
     }
   }
 }

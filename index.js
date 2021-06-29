@@ -3,5 +3,8 @@ const
 
 module.exports = {
   cmsStart: cmsController.cmsStart,
-
+  cmsStartNew: cmsController.cmsStartNew,
+  cmsImport: cmsController.cmsImport,
+  cmsList: cmsController.cmsList,
+  cmsCallback: cmsController.cmsCallback,
 }

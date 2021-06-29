@@ -5,6 +5,7 @@ const apiErrorNames = {}
 // 400
 apiErrorNames.VALIDATION_ERROR = 'VALIDATION_ERROR'
 apiErrorNames.STEP_IS_MISSING = 'STEP_IS_MISSING'
+apiErrorNames.STEP_IS_ALREADY_COMPLETED = 'STEP_IS_ALREADY_COMPLETED'
 apiErrorNames.X_CLIENT_ID_IS_MISSING = 'X_CLIENT_ID_IS_MISSING'
 apiErrorNames.X_KEY_HASH_IS_MISSING = 'X_KEY_HASH_IS_MISSING'
 apiErrorNames.EMAIL_IS_MISSING = 'EMAIL_IS_MISSING'
@@ -29,8 +30,14 @@ const returnError = (errorName, data) => {
     STEP_IS_MISSING: {
       status: 400,
       code: 100002,
-      title: 'startSteps',
+      title: 'The step is missing',
       message: `The CMS JSON is missing the key: ${data.missingStep}.`,
+    },
+    STEP_IS_ALREADY_COMPLETED: {
+      status: 400,
+      code: 100003,
+      title: 'The step is already completed',
+      message: `The CMS JSON ${data.step} is already completed.`,
     },
     // ===============================================================================
     // ============================= 500 =============================================
